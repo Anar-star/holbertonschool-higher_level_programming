@@ -2,4 +2,4 @@
 str = "Python is an interpreted, interactive, object-oriented programming\
  language that combines remarkable power with very clear syntax"
 # YOUR CODE GOES HERE. PLEASE REMOVE THIS LINE
-print(str)
+print(str[35:66] + str[66:71] + str[:6])
