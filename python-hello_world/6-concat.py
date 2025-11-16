@@ -1,4 +1,5 @@
 #!/usr/bin/python3
-str1 = "Welcome"
-str2 = "School!"
-print(str1 + " to Holberton " + str2)
+str1 = "Holberton"
+str2 = "School"
+# YOUR CODE GOES HERE. PLEASE REMOVE THIS LINE
+print("Welcome to " + str1 + " " + str2 + "!")
