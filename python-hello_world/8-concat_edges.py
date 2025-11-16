@@ -1,4 +1,5 @@
 #!/usr/bin/python3
-str1 = "Python is an interpreted, interactive, object-oriented programming language."
-str2 = "The Zen of Python"
-print(str1[35:66] + str1[66:71] + str1[:6])
+str = "Python is an interpreted, interactive, object-oriented programming\
+ language that combines remarkable power with very clear syntax"
+# YOUR CODE GOES HERE. PLEASE REMOVE THIS LINE
+print(str)
