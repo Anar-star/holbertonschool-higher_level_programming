@@ -1,4 +1,4 @@
---creating a script that lists all the cities of California that can be found in the database hbtn_0d_usa.
+-- List all cities of California using a subquery (no JOIN keyword)
 SELECT id, name
 FROM cities
 WHERE state_id = (
