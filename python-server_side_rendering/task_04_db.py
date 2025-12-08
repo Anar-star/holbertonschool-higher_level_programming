@@ -1,8 +1,67 @@
-@@ -0,0 +1,28 @@
-
-
+#!/usr/bin/env python3
 import sqlite3
+from flask import Flask, request, render_template
+import json
+import csv
 
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to our website"
+
+@app.route('/products')
+def products():
+    source = request.args.get('source')
+    error = ""
+    data = []
+    if str(source) == 'json':
+        try:
+            with open('./products.json', 'r') as p_json:
+                data = json.load(p_json)
+        except FileNotFoundError:
+                print("JSON file Not Found")
+
+    elif str(source) == 'csv':
+        data = []
+        try:
+            with open('./products.csv', 'r') as p_csv:
+                data_csv = csv.DictReader(p_csv)
+                for i in data_csv:
+                    data.append(i)
+        except FileNotFoundError:
+                print("CSV file Not Found")
+    elif source == 'sql':
+        try:
+            conn = sqlite3.connect('products.db')
+            curr = conn.cursor()
+
+            curr.execute('''SELECT * FROM Products''')
+            rows = curr.fetchall()
+            table_heads = [description[0] for description in curr.description]
+            data = [dict(zip(table_heads, row)) for row in rows]
+            print(data)
+        except Exception as e:
+            print("Connection could not establish")
+            print(e)
+
+    else:
+        return('Wrong source')
+
+    try:
+        id = request.args.get('id')
+        sel_data = None
+        for i in data:
+            if int(i.get('id')) == int(id):
+                sel_data = i
+                break
+        if (sel_data is None):
+            error = "Product not found"
+        else:
+            data = [sel_data]
+    except Exception:
+        pass
+    return render_template('product_display.html', products=data, error=error)
 
 
 
@@ -80,6 +139,5 @@ def create_database():
 
 
 if __name__ == '__main__':
-
-
-    create_database()
+    #create_database()
+    app.run(debug=True, port=5000)
