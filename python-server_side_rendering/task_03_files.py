@@ -11,12 +11,12 @@ def home():
 
 @app.route('/products')
 def products():
-    source = requests.args.get('source')
+    source = request.args.get('source')
     error = ""
 
     if source == 'json':
         try:
-            with open('products.json', 'r') as p_json:
+            with open('./products.json', 'r') as p_json:
                 data = json.load(p_json)
         except FileNotFoundError:
                 print("JSON file Not Found")
@@ -24,7 +24,7 @@ def products():
     elif source == 'csv':
         data = []
         try:
-            with open('products.csv', 'r') as p_csv:
+            with open('./products.csv', 'r') as p_csv:
                 data_csv = csv.DictReader(p_csv)
                 for i in data_csv:
                     data.append(data_csv)
@@ -32,7 +32,7 @@ def products():
                 print("CSV file Not Found")
 
     try:
-        id = requests.args.get('id')
+        id = request.args.get('id')
         sel_data = []
         for i in data:
             if i.get('id') == id:
