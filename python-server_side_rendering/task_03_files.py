@@ -13,41 +13,44 @@ def home():
 def products():
     source = request.args.get('source')
     error = ""
-
-    if source == 'json':
+    products = []
+    print(source)
+    if str(source) == 'json':
         try:
             with open('./products.json', 'r') as p_json:
                 data = json.load(p_json)
         except FileNotFoundError:
                 print("JSON file Not Found")
 
-    elif source == 'csv':
+    elif str(source) == 'csv':
         data = []
         try:
             with open('./products.csv', 'r') as p_csv:
                 data_csv = csv.DictReader(p_csv)
                 for i in data_csv:
-                    data.append(data_csv)
+                    data.append(i)
         except FileNotFoundError:
                 print("CSV file Not Found")
+    else:
+        return('Wrong source')
 
     try:
         id = request.args.get('id')
-        sel_data = []
+        sel_data = None
         for i in data:
-            if i.get('id') == id:
+            print(i.get('id'))
+            print(id)
+            if int(i.get('id')) == int(id):
                 sel_data = i
                 break
-        if len(sel_data) == 0:
+        if (sel_data is None):
             error = "Product not found"
         else:
             data = sel_data
     except Exception:
         pass
-
-    else:
-        return('Wrong source')
-
+    print(request.args.get('salam'))
+    print(data)
     return render_template('product_display.html', products=data, error=error)
 
 if __name__ == "__main__":

@@ -6,12 +6,10 @@
 <body>
 
     {% if error %}
-        <h2 style="color:red;">{{ error }}</h2>
-    {% elif not products %}
-        <h3>No products found.</h3>
+        <h2>{{ error }}</h2>
     {% else %}
         <h1>Product List</h1>
-
+	<p>{{products}}</p>
         <table border="1" cellpadding="8">
             <tr>
                 {% for key in products[0].keys() %}
