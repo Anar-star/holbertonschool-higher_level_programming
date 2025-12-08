@@ -46,7 +46,7 @@ def products():
         if (sel_data is None):
             error = "Product not found"
         else:
-            data = sel_data
+            data = [sel_data]
     except Exception:
         pass
     print(request.args.get('salam'))
@@ -54,5 +54,5 @@ def products():
     return render_template('product_display.html', products=data, error=error)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", debug=True, port=5000)
 
